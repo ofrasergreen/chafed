@@ -1,3 +1,5 @@
+organization := "chafe"
+
 name := "chafe"
 
 version := "0.1"
