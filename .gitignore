@@ -1,3 +1,6 @@
 target/
 project/boot/
 .release.sbt
+.cache
+.classpath
+.project

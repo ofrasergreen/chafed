@@ -11,19 +11,19 @@ trait Selectable {
   private def hasAttr(attr: String, value: String)(node: Node) = 
     node.attribute(attr).map(_.text).exists(_ == value)
     
-  private def select(selector: Selector): NodeSeq = {
+  private def select(selector: Selector, nodes: NodeSeq): NodeSeq = {
     val selected: NodeSeq = selector match {
-      case ClassSelector(clss, subNodes) => (content \\ "_" filter hasClass(clss))
-      case ElemSelector(elem, subNodes) => (content \\ elem)
-      case IdSelector(id, subNodes) => (content \\ "_" filter hasAttr("id", id))
-      case NameSelector(name, subNodes) => (content \\ "_" filter hasAttr("name", name))
+      case ClassSelector(clss, subNodes) => (nodes \\ "_" filter hasClass(clss))
+      case ElemSelector(elem, subNodes) => (nodes \\ elem)
+      case IdSelector(id, subNodes) => (nodes \\ "_" filter hasAttr("id", id))
+      case NameSelector(name, subNodes) => (nodes \\ "_" filter hasAttr("name", name))
       case _ => 
         println("TODO: select " + selector)
         Nil
     }
     
     selector.subNodes match {
-      case Some(SelectorSubNode(s)) => select(s)
+      case Some(SelectorSubNode(s)) => select(s, selected)
       case None => selected
       case Some(s) =>
         println("TODO: match " + s)
@@ -31,13 +31,13 @@ trait Selectable {
     }
   }
     
-  def $(selector: Selector): HtmlSeq = select(selector).map(new Html(_, context))
+  def $(selector: Selector): HtmlSeq = select(selector, content).map(new Html(_, context))
   
   def submit(selector: Selector, inputs: Input*): Seq[Response] = {
     $(selector).flatMap { form =>
       // Turn the inputs into a Map so we can spot if we're hitting them when we iterate through
       // them later.
-      val data = inputs.flatMap({case Input(s, value) => form.select(s).map((_, value))}).toMap 
+      val data = inputs.flatMap({case Input(s, value) => form.select(s, content).map((_, value))}).toMap 
       
       val ins: Map[String, Option[String]] = (for {
         input <- (form.content \\ "input")
@@ -63,7 +63,7 @@ trait Selectable {
   
   def click(): Seq[Response] = {
     for {
-      a <- select(ElemSelector("a", None))
+      a <- select(ElemSelector("a", None), content)
       link <- a.attribute("href")
     } yield {
       context.invoke(Request(Get, URI(link.text).toURL(context.request.resource), Nil))
@@ -72,7 +72,7 @@ trait Selectable {
   
   def click(selector: Selector): Seq[Response] = {
     for {
-      a <- select(selector) if (a.label.toLowerCase == "a")
+      a <- select(selector, content) if (a.label.toLowerCase == "a")
       link <- a.attribute("href")
     } yield {
       context.invoke(Request(Get, URI(link.text).toURL(context.request.resource), Nil))
