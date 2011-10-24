@@ -25,7 +25,12 @@ class HttpURLConnectionHttp extends Client {
     }
     
     // Get response
-    val inputStream = connection.getInputStream
+    val inputStream = try {
+      connection.getInputStream
+    } catch {
+    case e: java.net.ConnectException =>
+      throw new ClientException("Error fetching '" + request.resource + "': " + e.getMessage)
+    }
     val inputStreamReader = try {
       val re = """.*charset=([^()<>@,;:\"/\[\]?={}\s]*).*""".r
       val re(charSet) = connection.getContentType

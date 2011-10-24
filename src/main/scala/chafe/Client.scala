@@ -10,3 +10,6 @@ object Client {
     case chafe.http | chafe.https => new HttpURLConnectionHttp()
   }
 }
+
+case class ClientException(reason: String) extends Exception(reason)
+
