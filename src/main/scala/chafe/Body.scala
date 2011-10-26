@@ -6,7 +6,7 @@ trait Body {
   
   def headers: List[Header] = contentType match {
     case Some(c) => 
-      List(Headers.ContentType(c), Headers.ContentLength(content.size))
+      List(header.ContentType(c), header.ContentLength(content.size))
     case None => Nil
   }
 }

@@ -2,7 +2,6 @@ package chafe
 import java.io.Serializable
 
 sealed abstract class Response extends Serializable with Selectable {
-  self =>
   protected val context: Context  
   
   protected val content: scala.xml.NodeSeq = Nil

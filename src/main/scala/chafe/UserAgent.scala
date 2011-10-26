@@ -1,11 +1,11 @@
 package chafe
 
-class UserAgent(identity: String) extends NilResponse(List(Headers.UserAgent(identity),
-    Headers.Accept("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")))
+class UserAgent(identity: String) extends NilResponse(header.UserAgent(identity) ::
+    header.Accept("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") :: Nil) {
+}
 
 object UserAgent extends UserAgent("Chafe/1.0") {
   def apply(identity: String): Response = new UserAgent(identity)
-  
   
   object Chrome extends UserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/14.0.835.202 Safari/535.1")
   object Safari extends UserAgent("Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/312.8 (KHTML, like Gecko) Safari/312.3.32011-10-10 14:01:24")

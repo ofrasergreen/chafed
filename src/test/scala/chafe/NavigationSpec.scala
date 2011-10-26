@@ -13,7 +13,7 @@ object mockhttp extends Scheme {
 class NavigationSpec extends Specification {
   "The UserAgent" should {
     "have a default identity if none is provided" in {
-      UserAgent.request.headers.find(_.name == "User-Agent") must_== Some(Headers.UserAgent("Chafe/1.0")) 
+      UserAgent.request.headers.find(_.name == "User-Agent") must_== Some(header.UserAgent("Chafe/1.0")) 
     }
     
     "have no response body" in {
