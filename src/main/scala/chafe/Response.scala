@@ -28,6 +28,8 @@ sealed abstract class Response extends Serializable with Selectable {
   
   def toOption: Option[Html] = None
   
+  def resource = context.request.resource
+  
   import URLBuilder._
   
   def GET(uri: URI, headers: Header*) = context.invoke(Request(Get, uri.toURL(context.request.resource), headers.toList))
@@ -58,18 +60,18 @@ final case class HtmlResponse(body: Html, context: Context) extends Response {
 final case class ErrorResponse(code: Int, message: String, headers: List[Header], context: Context) extends Response {
   override def isEmpty: Boolean = true
   
-  override def get: Html = throw new NullPointerException("Calling get() on an ErrorResponse")
+  override def get: Html = throw new Exception("Calling get() on an ErrorResponse")
 }
 
 final case class RedirectResponse(code: Int, location: String, context: Context) extends Response {
   override def isEmpty: Boolean = true
   
-  override def get: Html = throw new NullPointerException("Calling get() on a RedirectResponse")
+  override def get: Html = throw new Exception("Calling get() on a RedirectResponse")
 }
 
 
 class NilResponse(headers: List[Header]) extends Response {
   val context =  Context(Request.Nil.copy(headers=headers), Nil)
   
-  override def get: Html = throw new NullPointerException("Calling get() on the NilResponse")
+  override def get: Html = throw new Exception("Calling get() on the NilResponse")
 }

@@ -3,11 +3,10 @@ package chafe
 class URI(uri: java.net.URI) {
   def toURL(previous: URL) = {
     val u = previous.uri.resolve(uri)
-    // TODO - allow overriding
-    val scheme = previous.scheme
+    val scheme = URLBuilder.str2Scheme(u.getScheme())
     val query = if (u.getQuery == null) "" else u.getQuery
     val port = if (u.getPort == -1) scheme.defaultPort else u.getPort
-    URL(previous.scheme, u.getHost, port, u.getPath, query)
+    URL(scheme, u.getHost, port, u.getPath, query)
   }
 }
 

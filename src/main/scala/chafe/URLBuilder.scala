@@ -3,6 +3,7 @@ package chafe
 object URLBuilder {
   implicit def str2PathParts(path: String) = new PathPartsBuilder(path)
   implicit def str2QueryParts(path: String) = new QueryPartsBuilder(path)
+  implicit def str2Scheme(s: String) = Scheme.all.find(_.name == s).getOrElse(throw new Exception("Unrecognized scheme: " + s))
   //implicit def str2URI(uri: String) = new URL(previous.scheme, previous.host, "", "")
   //}
 }

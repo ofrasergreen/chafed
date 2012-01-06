@@ -14,6 +14,10 @@ abstract class Scheme(val name: String, val defaultPort: Int) {
   }
 }
 
+object Scheme {
+  def all = http :: https :: Nil
+}
+
 case object http extends Scheme("http", 80)
 
 case object https extends Scheme("https", 443)
