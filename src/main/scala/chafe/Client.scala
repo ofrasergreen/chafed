@@ -1,8 +1,8 @@
 package chafe
-import java.io.InputStream
+import java.io.BufferedReader
 
 trait Client {
-  def fetch(request: Request)(parse: (Int, String, List[Header], InputStream) => Response): Response
+  def fetch(request: Request)(parse: (Int, String, List[Header], BufferedReader) => Response): Response
 }
 
 object Client {
