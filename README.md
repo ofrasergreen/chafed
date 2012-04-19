@@ -26,7 +26,7 @@ This uses Scala's for-comprehension to compose a set of actions to:
    with the *raw-url* ID.
 1. click the link and print its content.
 
-See [samples] for more examples.
+See [samples](samples) for more examples.
 
 Usage
 =====
