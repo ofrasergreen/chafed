@@ -17,6 +17,7 @@ Example
 	} println(readme)
 
 This uses Scala's for-comprehension to compose a set of actions to:
+
 1. fetch Chafe's github project page.
 1. extract the project tree browser by using a CSS selector to find a tag with
    the *tree-browser* class.
