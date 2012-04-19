@@ -13,8 +13,8 @@ object ChafeReadme {
       githubProject <- ua GET("https://github.com/ofrasergreen/chafe")
       treeBrowser <- githubProject $(".tree-browser")
       readmePage <- treeBrowser click("README.md")
-      readmeRawLink <- readmePage $("#raw-url")
-      readme <- readmeRawLink click
+      readme <- readmePage click$("#raw-url")
+      //readme <- readmeRawLink click
     } println(readme)
   }
 }

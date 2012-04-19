@@ -94,6 +94,10 @@ class Html(
     }).headOption.getOrElse(InvalidRequest("No valid <a> tag found to click.", context))
   }
 
+  def click$(selector: String): Response = {
+    $(selector).map(_.click).headOption.getOrElse(InvalidRequest("No valid <a> tag found to click.", context))
+  }
+  
   /**
    * Click and follow all links containing `text`.
    */

@@ -11,14 +11,13 @@ object GoogleSearch {
     val ua = new UserAgent(logger = PrintfLogger)
   	val results = for {
   	  google <- ua GET("http://www.google.com")
-  	  resultPage <- google submit("input[type=text]" -> "scala web scraping")
-  	  result <- resultPage $(".r > a")
-  	  page <- result.click
+  	  results <- google submit("input[type=text]" -> "scala web scraping")
+  	  result <- results click$(".r > a")
   	  if !(for {
-  	    a <- page $("a")
+  	    a <- result $("a")
   	    href <- a.attribute("href") if href.text.contains("github.com/ofrasergreen/chafe")
   	  } yield 1).isEmpty
-  	} yield page.resource
+  	} yield result.resource
   	
   	println("Found:")
   	results.foreach(println(_))
