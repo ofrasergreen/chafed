@@ -4,20 +4,15 @@ import org.specs2.mutable._
 import scala.xml._
 import URLBuilder._
 
-object mockhttp extends Scheme {
-  def invoke(request: Request): Response = {
-    Response(Nil, Text(request.method.toString.toUpperCase + " " + request.resource))
-  }
+object mockhttp extends Scheme("http", 80) {
+  def invoke(request: Request): Response = 
+    HtmlResponse(Text(request.method.toString.toUpperCase + " " + request.resource), Context(Request.Nil))
 }
 
 class NavigationSpec extends Specification {
   "The UserAgent" should {
     "have a default identity if none is provided" in {
-      UserAgent.request.headers.find(_.name == "User-Agent") must_== Some(header.UserAgent("Chafe/1.0")) 
-    }
-    
-    "have no response body" in {
-      UserAgent.response.body must_== Nil
+      UserAgent.context.request.headers.find(_.name == "User-Agent") must_== Some(header.UserAgent("Chafe/1.0")) 
     }
   }
   
@@ -80,13 +75,13 @@ class NavigationSpec extends Specification {
   
   "A page" should {
     "let you navigate to a new page" in {
-      UserAgent.GET(mockhttp :/ "www.google.com" / "foo").body must_== Text("GET http://www.google.com/foo")
+      UserAgent.GET(mockhttp :/ "www.google.com" / "foo").get.content must_== Text("GET http://www.google.com/foo")
     }
     
     "use the previous page when navigating relatively" in {
       val page1 = UserAgent.GET(mockhttp :/ "www.google.com" / "foo/bar") 
       val page2 = page1.GET("baz")
-      page2.body must_== Text("GET http://www.google.com/foo/baz")
+      page2.get.content must_== Text("GET http://www.google.com/foo/baz")
     }
   }
 }

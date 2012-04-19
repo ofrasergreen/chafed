@@ -1,10 +1,10 @@
 package chafe
 import java.io.Serializable
 
-sealed abstract class Response extends Serializable with Selectable {
+abstract class Response()(implicit val logger: Logger) {
   protected val context: Context  
   
-  protected val content: scala.xml.NodeSeq = Nil
+  //val body: scala.xml.NodeSeq = Nil
   
   def isEmpty: Boolean = true
   def isDefined: Boolean = !isEmpty
@@ -26,52 +26,56 @@ sealed abstract class Response extends Serializable with Selectable {
   
   def toList: List[Html] = Nil
   
-  def toOption: Option[Html] = None
-  
   def resource = context.request.resource
   
-  import URLBuilder._
+  override def toString = if (isEmpty) "" else get.toString
   
-  def GET(uri: URI, headers: Header*) = context.invoke(Request(Get, uri.toURL(context.request.resource), headers.toList))
+  def log = {
+    logger.log(toString)
+    this
+  }
 }
 
 object Response {
-  implicit def response2Option(r: Response) = r.toOption
+  implicit def response2List(r: Response) = r.toList
+  implicit def response2UserAgent(r: Response) = new UserAgent(r.context, r.logger)
 }
 
-final case class HtmlResponse(body: Html, context: Context) extends Response {
+final case class HtmlResponse(html: Html, context: Context)(override implicit val logger: Logger) extends Response {
   override def isEmpty: Boolean = false  
+    
+  override def get: Html = html
   
-  override protected val content: scala.xml.NodeSeq = body.content
+  override def getOrElse(default: => Html): Html = html
   
-  override def get: Html = body
+  override def exists(func: Html => Boolean): Boolean = func(html)
   
-  override def getOrElse(default: => Html): Html = body
+  override def foreach[U](f: Html => U): Unit = f(html)
   
-  override def exists(func: Html => Boolean): Boolean = func(body)
-  
-  override def foreach[U](f: Html => U): Unit = f(body)
-  
-  override def toList: List[Html] = body :: Nil
-  
-  override def toOption: Option[Html] = Some(body)
+  override def toList: List[Html] = html :: Nil
 }
 
-final case class ErrorResponse(code: Int, message: String, headers: List[Header], context: Context) extends Response {
+final case class ErrorResponse(code: Int, message: String, headers: List[Header], context: Context)(override implicit val logger: Logger) extends Response {
   override def isEmpty: Boolean = true
   
   override def get: Html = throw new Exception("Calling get() on an ErrorResponse")
 }
 
-final case class RedirectResponse(code: Int, location: String, context: Context) extends Response {
+final case class RedirectResponse(code: Int, location: String, context: Context)(override implicit val logger: Logger) extends Response {
   override def isEmpty: Boolean = true
   
   override def get: Html = throw new Exception("Calling get() on a RedirectResponse")
 }
 
 
-class NilResponse(headers: List[Header]) extends Response {
+final case class NilResponse(headers: List[Header])(override implicit val logger: Logger) extends Response {
   val context =  Context(Request.Nil.copy(headers=headers), Nil)
   
   override def get: Html = throw new Exception("Calling get() on the NilResponse")
+}
+
+final case class InvalidRequest(message: String, context: Context)(override implicit val logger: Logger) extends Response {
+  override def isEmpty: Boolean = true
+  
+  override def get: Html = throw new Exception("Calling get() on an InvalidRequest") 
 }

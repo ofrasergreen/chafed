@@ -12,4 +12,6 @@ case class Cookie(
     expires: Option[Date],
     secure: Boolean,
     httpOnly: Boolean
-    )
+    ) {
+  override def toString = name + "=" + value  
+}

@@ -16,7 +16,12 @@ case class Request(
     
     def refererHeader = header.Referer(previous.resource.toString)
   
-    copy(headers = refererHeader :: cookieHeader :: headers ++ body.headers ++ previous.headers.filter(h => (!headers.exists(_.name == h.name) && !(h.name == "Cookie"))))
+    copy(headers = refererHeader :: cookieHeader :: headers ++ body.implicitHeaders ++ previous.headers.filter(h => (!headers.exists(_.name == h.name) && !(h.name == "Cookie") && !(h.name == "Referer"))))
+  }
+  
+  override def toString() = {
+    "> " + method.toString.toUpperCase + " " + resource + "\n" + 
+        headers.map("> " + _.toString).mkString("\n") + "\n"
   }
 }
 

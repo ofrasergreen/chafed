@@ -7,16 +7,16 @@ package chafe
    */
 trait Logger {
   /**
-   * Log something. ctx is an integer identifying the UserAgent.
+   * Log something.
    */
-  def log(ctx: => Int, str: => String)
+  def log(msg: => String)
 }
 
 /**
  * The "null logger" doesn't do anything at all.
  */
 object NullLogger extends Logger {
-  def log(ctx: => Int, str: => String) {
+  def log(msg: => String) {
     // Do nothing. That's right, that's why it's called the null logger!
   }
 }
@@ -26,7 +26,7 @@ object NullLogger extends Logger {
  * The printf logger just prints all log messages to stdout.
  */
 object PrintfLogger extends Logger {
-  def log(ctx: => Int, str: => String) {
-    println("%08x: %s".format(ctx, str))
+  def log(msg: => String) {
+    println(msg)
   }
 }

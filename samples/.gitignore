@@ -14,6 +14,5 @@ project/plugins/project/
 .cache
 .classpath
 .project
-.target
 *.sublime-project
 *.sublime-workspace

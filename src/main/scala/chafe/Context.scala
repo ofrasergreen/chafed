@@ -1,5 +1,7 @@
 package chafe
 
+import scala.util.Random
+
 /**
  * The context by which a response was achieved. This is useful to know which
  * what the last page was when following relative paths, the cookie jar etc.
@@ -8,6 +10,10 @@ case class Context(
   val request: Request = Request.Nil,
   val cookies: List[Cookie] = Nil,
   maxDepth: Int = 10) {
+  
+  private lazy val id = new Random().nextInt
+  
+  override def toString = "#%8x".format(id)
 }
 
 object Context {

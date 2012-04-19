@@ -24,13 +24,23 @@ class HttpURLConnectionHttp extends Client {
         outputStream.close
     }
     
+    // Extract the headers
+    val headers = (for {
+      (name, values) <- connection.getHeaderFields()
+      value <- values
+    } yield {
+      Header(name, value)
+    }).toList.filter(_.name != null)
+    
     // Get response
     val inputStream = try {
-      connection.getInputStream
+      if (connection.getErrorStream != null) 
+        connection.getErrorStream else connection.getInputStream
     } catch {
     case e: java.net.ConnectException =>
       throw new ClientException("Error fetching '" + request.resource + "': " + e.getMessage)
     }
+    
     val inputStreamReader = try {
       val re = """.*charset=([^()<>@,;:\"/\[\]?={}\s]*).*""".r
       val re(charSet) = connection.getContentType
@@ -39,14 +49,6 @@ class HttpURLConnectionHttp extends Client {
       case t: Throwable => new InputStreamReader(inputStream)        
     }
     val reader = new BufferedReader(inputStreamReader)
-    
-    // Extract the headers
-    val headers = (for {
-      (name, values) <- connection.getHeaderFields()
-      value <- values
-    } yield {
-      Header(name, value)
-    }).toList.filter(_.name != null)
     
     // Invoke the parser on the data
     val response = parse(connection.getResponseCode, connection.getResponseMessage, headers, reader)
