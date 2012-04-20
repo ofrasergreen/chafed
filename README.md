@@ -7,13 +7,15 @@ pages, following links, extracting content, filling in forms and more.
 Example
 =======
 
-	import chafe._
-	for {
-	  githubProject <- UserAgent GET("https://github.com/ofrasergreen/chafe")
-	  treeBrowser <- githubProject $(".tree-browser")
-	  readmePage <- treeBrowser click("README.md")
-	  readme <- readmePage click$("#raw-url")
-	} println(readme)
+```scala
+import chafe._
+for {
+  githubProject <- UserAgent GET("https://github.com/ofrasergreen/chafe")
+  treeBrowser <- githubProject $(".tree-browser")
+  readmePage <- treeBrowser click("README.md")
+  readme <- readmePage click$("#raw-url")
+} println(readme)
+```
 
 This uses Scala's for-comprehension to compose a set of actions to:
 
