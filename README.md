@@ -20,10 +20,10 @@ for {
 This uses Scala's for-comprehension to compose a set of actions to:
 
 1. Fetch Chafe's github project page.
-1. Extract the project tree browser by using a CSS selector to find a tag with
-   the *tree-browser* class.
-1. Click the link containing the text "README.md".
-1. Click the link to the "RAW" content using a CSS selector to find a tag
+1. Extract the HTML for the project tree browser by using a CSS selector to
+   find a tag with the *tree-browser* class.
+1. Follow the link containing the text "README.md".
+1. Follow the link to the "RAW" content using a CSS selector to find a tag
    with the *raw-url* ID.
 1. Print its content.
 
