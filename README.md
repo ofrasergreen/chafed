@@ -29,6 +29,22 @@ This uses Scala's for-comprehension to compose a set of actions to:
 
 See [samples](chafe/tree/master/samples) for more examples.
 
-Usage
-=====
+Building and Installation
+=========================
+
+To use Chafe in your own [sbt]("https://github.com/harrah/xsbt") project, add
+the following to your *build.sbt*:
+
+```scala
+libraryDependencies ++= Seq(
+  "com.chuusai" %% "shapeless" % "1.2.0"
+)
+```
+
+Use [sbt]("https://github.com/harrah/xsbt") to build from source:
+
+  $ sbt clean update package
+
+The finished jar will be in *target*.
+
 
