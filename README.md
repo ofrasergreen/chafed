@@ -43,7 +43,9 @@ libraryDependencies ++= Seq(
 
 Use [sbt]("https://github.com/harrah/xsbt") to build from source:
 
-  $ sbt clean update package
+```
+$ sbt clean update package
+```
 
 The finished jar will be in *target*.
 
