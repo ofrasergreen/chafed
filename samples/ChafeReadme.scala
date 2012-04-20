@@ -14,7 +14,6 @@ object ChafeReadme {
       treeBrowser <- githubProject $(".tree-browser")
       readmePage <- treeBrowser click("README.md")
       readme <- readmePage click$("#raw-url")
-      //readme <- readmeRawLink click
     } println(readme)
   }
 }
