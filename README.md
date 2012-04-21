@@ -36,9 +36,7 @@ To use Chafe in your own [sbt]("https://github.com/harrah/xsbt") project, add
 the following to your *build.sbt*:
 
 ```scala
-libraryDependencies ++= Seq(
-  "chafe" %% "chafe" % "0.2"
-)
+libraryDependencies += "chafe" %% "chafe" % "0.2"
 ```
 
 Use [sbt]("https://github.com/harrah/xsbt") to build from source:
