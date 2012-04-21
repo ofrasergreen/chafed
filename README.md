@@ -37,7 +37,7 @@ the following to your *build.sbt*:
 
 ```scala
 libraryDependencies ++= Seq(
-  "com.chuusai" %% "shapeless" % "1.2.0"
+  "chafe" %% "chafe" % "0.2"
 )
 ```
 
