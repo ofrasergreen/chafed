@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 
 import scala.util.Random
 
@@ -20,7 +20,7 @@ object Context {
   /**
    * Create a fresh context with a user agent identity.
    */
-  private[chafe] def newWithIdentity(identity: String): Context = {
+  private[chafed] def newWithIdentity(identity: String): Context = {
     val headers = header.UserAgent(identity) ::
       header.Accept("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") :: Nil
     Context(request = Request.Nil.copy(headers = headers))

@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 
 import org.scalatest.FlatSpec
 import scala.xml._

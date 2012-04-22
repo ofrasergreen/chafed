@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 import java.io.Serializable
 
 abstract class Response()(implicit val logger: Logger) {

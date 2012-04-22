@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 
   /**
    * The logging interface. The intention is that consumers of this library

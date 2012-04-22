@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 import scala.xml.NodeSeq
 import java.util.Date
 

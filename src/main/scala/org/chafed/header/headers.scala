@@ -1,6 +1,6 @@
-package chafe.header
+package org.chafed.header
 
-import chafe.Header
+import org.chafed.Header
 
 trait NamedHeader {
   val name: String

@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 import java.net.HttpURLConnection
 import java.io.{BufferedReader,InputStreamReader,Reader}
 import scala.xml.NodeSeq

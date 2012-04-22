@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 import java.io.BufferedReader
 import scala.xml.NodeSeq
 

@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 
 import org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl
 import java.io.BufferedReader

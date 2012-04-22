@@ -1,6 +1,6 @@
-organization := "chafe"
+organization := "chafed"
 
-name := "chafe-samples"
+name := "chafed-samples"
 
 version := "0.1"
 

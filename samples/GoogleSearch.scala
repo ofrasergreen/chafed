@@ -1,6 +1,6 @@
-package chafe.samples
+package org.chafed.samples
 
-import chafe._
+import org.chafed._
 
 /**
  * Count the number of pages in the first page of results from search
@@ -15,7 +15,7 @@ object GoogleSearch {
   	  result <- results click$(".r > a")
   	  if !(for {
   	    a <- result $("a")
-  	    href <- a.attribute("href") if href.text.contains("github.com/ofrasergreen/chafe")
+  	    href <- a.attribute("href") if href.text.contains("github.com/ofrasergreen/chafed")
   	  } yield 1).isEmpty
   	} yield result.resource
   	

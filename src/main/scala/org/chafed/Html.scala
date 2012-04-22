@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 import scala.xml.{ Node, Elem, PrettyPrinter }
 import se.fishtank.css.selectors.Selectors
 
@@ -17,7 +17,7 @@ object Input {
  */
 class Html(
   val content: Node,
-  private[chafe] val context: Context)(implicit val logger: Logger) {
+  private[chafed] val context: Context)(implicit val logger: Logger) {
 
   private lazy val ua = new UserAgent(context, logger)
   

@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 
 /**
  * A request body. 
@@ -17,7 +17,7 @@ trait Body {
   /**
    * Extract additional headers we can derive given the content.
    */
-  private[chafe] def implicitHeaders: List[Header] = contentType match {
+  private[chafed] def implicitHeaders: List[Header] = contentType match {
     case Some(c) => 
       List(header.ContentType(c), header.ContentLength(content.size))
     case None => Nil

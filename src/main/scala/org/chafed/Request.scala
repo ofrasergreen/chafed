@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 
 case class Request(
     method: Method,

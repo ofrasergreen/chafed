@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 
 class URI(uri: java.net.URI) {
   def toURL(previous: URL) = {

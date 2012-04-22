@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 
 abstract class Scheme(val name: String, val defaultPort: Int) {
   def :/(host: String) = new HostURL(this, host)

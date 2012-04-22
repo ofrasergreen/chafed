@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 
 object URLBuilder {
   implicit def str2PathParts(path: String) = new PathPartsBuilder(path)

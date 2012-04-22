@@ -1,6 +1,6 @@
-organization := "chafe"
+organization := "org.chafed"
 
-name := "chafe"
+name := "chafed"
 
 version := "0.2"
 
@@ -34,10 +34,10 @@ publishArtifact in Test := false
 pomIncludeRepository := { _ => false }
 
 pomExtra := (
-  <url>https://github.com/ofrasergreen/chafe</url>
+  <url>http://chafe.org/</url>
   <scm>
-    <url>git@github.com:ofrasergreen/chafe.git/</url>
-    <connection>scm:git:git@github.com:ofrasergreen/chafe.git</connection>
+    <url>git@github.com:ofrasergreen/chafed.git/</url>
+    <connection>scm:git:git@github.com:ofrasergreen/chafed.git</connection>
   </scm>
   <developers>
     <developer>

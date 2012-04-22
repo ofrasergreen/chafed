@@ -8,9 +8,9 @@ Example
 =======
 
 ```scala
-import chafe._
+import org.chafed._
 for {
-  githubProject <- UserAgent GET("https://github.com/ofrasergreen/chafe")
+  githubProject <- UserAgent GET("https://github.com/ofrasergreen/chafed")
   treeBrowser <- githubProject $(".tree-browser")
   readmePage <- treeBrowser click("README.md")
   readme <- readmePage click$("#raw-url")
@@ -27,7 +27,7 @@ This uses Scala's for-comprehension to compose a set of actions to:
    with the *raw-url* ID.
 1. Print its content.
 
-See [samples](chafe/tree/master/samples) for more examples.
+See [samples](chafed/tree/master/samples) for more examples.
 
 Building and Installation
 =========================
@@ -36,7 +36,7 @@ To use Chafe in your own [sbt]("https://github.com/harrah/xsbt") project, add
 the following to your *build.sbt*:
 
 ```scala
-libraryDependencies += "chafe" %% "chafe" % "0.2"
+libraryDependencies += "chafed" %% "chafe" % "0.2"
 ```
 
 Use [sbt]("https://github.com/harrah/xsbt") to build from source:

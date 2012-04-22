@@ -1,4 +1,4 @@
-package chafe
+package org.chafed
 import java.io.BufferedReader
 
 trait Client {
@@ -7,7 +7,7 @@ trait Client {
 
 object Client {
   def apply(scheme: Scheme) = scheme match {
-    case chafe.http | chafe.https => new HttpURLConnectionHttp()
+    case org.chafed.http | org.chafed.https => new HttpURLConnectionHttp()
   }
 }
 
