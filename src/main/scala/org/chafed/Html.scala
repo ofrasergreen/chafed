@@ -23,6 +23,8 @@ class Html(
   
   def resource = context.request.resource
 
+  def cookies = context.cookies
+
   /**
    * Return the subset of this `Html` selected by the CSS selector. This may be zero
    * if there were no matches, one or multiple excerpts.
