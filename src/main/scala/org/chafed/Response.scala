@@ -27,6 +27,8 @@ abstract class Response()(implicit val logger: Logger) {
   def toList: List[Html] = Nil
   
   def resource = context.request.resource
+
+  def cookies = context.cookies
   
   override def toString = if (isEmpty) "" else get.toString
   
